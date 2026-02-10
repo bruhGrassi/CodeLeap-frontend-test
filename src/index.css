@@ -1,24 +1,47 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import "tailwindcss";
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+@theme {
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --font-roboto: "Roboto", system-ui, -apple-system, sans-serif;
+
+  --color-neutral-50: #ffffff;
+  --color-neutral-100: #dddddd;
+  --color-neutral-200: #cccccc;
+  --color-neutral-300: #999999;
+  --color-neutral-400: #777777;
+  --color-neutral-900: #000000;
+
+  --color-brand: #7695ec;
+  --color-success: #47b960;
+  --color-danger: #ff5151;
+
+  --color-overlay: #777777cc;
+
+  --color-main-bg: var(--color-neutral-100);
+  --color-main-border: var(--color-neutral-200);
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+@layer base {
+  html {
+
+    font-family: var(--font-roboto);
+    background-color: var(--color-main-bg);
+    color: var(--color-neutral-900);
+    
+    line-height: 1.5;
+    font-weight: 400;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+
+  body {
+    margin: 0;
+    display: flex;
+    place-items: center;
+    min-width: 320px;
+    min-height: 100vh;
+  }
 }
-
-
