@@ -4,6 +4,7 @@ import { IconButton } from './ui'
 import editIcon from '../assets/bx_bx-edit.svg'
 import deleteIcon from '../assets/ic_baseline-delete-forever.svg'
 import DeletePostModal from './DeletePostModal'
+import EditPostModal from './EditPostModal'
 
 export interface PostCardProps {
   id: number,
@@ -30,6 +31,7 @@ function PostCard({
 }: PostCardProps)  {
   const showOwnerActions = isOwner
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
+  const [isEditOpen, setIsEditOpen] = useState(false)
 
   return (
     <>
@@ -50,7 +52,7 @@ function PostCard({
                 <IconButton
                   icon={editIcon}
                   alt="Edit post"
-                  onClick={onEdit}
+                  onClick={() => setIsEditOpen(true)}
                 />
               </div>
             )}
@@ -80,6 +82,17 @@ function PostCard({
         onConfirm={() => {
           onDelete?.()
         }}
+      />
+
+      <EditPostModal       
+          id={id}
+          title={title}
+          content={content}
+          open={isEditOpen}
+          onClose={() => setIsEditOpen(false)}
+          onSave={() => {
+            onEdit?.()
+          }}
       />
     </>
   )
