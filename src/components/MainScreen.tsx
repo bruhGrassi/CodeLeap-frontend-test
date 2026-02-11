@@ -45,6 +45,7 @@ function MainScreen() {
               PostList.map((post) => (
                 <PostCard
                   key={post.id}
+                  id={post.id}
                   title={post.title}
                   username={post.username}
                   timestamp={post.created_datetime}
