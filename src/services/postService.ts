@@ -1,4 +1,4 @@
-import type { PostListResponse } from "../types/post";
+import type { PostListResponse, PostCreate, Post } from "../types/post";
 
 const BASE_URL = 'https://dev.codeleap.co.uk/careers/';
 
@@ -17,5 +17,14 @@ export const postService = {
     const response = await fetch(BASE_URL);
     return handleResponse<PostListResponse>(response);
   },
-  
+
+  create: async (postData: PostCreate): Promise<Post> => {
+    const response = await fetch(BASE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(postData),
+    });
+    return handleResponse<Post>(response);
+  },
+
 }
