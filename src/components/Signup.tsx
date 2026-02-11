@@ -1,8 +1,5 @@
 import { useState } from 'react'
-import FormHeader from './ui/FormHeader'
-import FormLabel from './ui/FormLabel'
-import FormInput from './ui/FormInput'
-import FormButton from './ui/FormButton'
+import { FormHeader, FormInput, FormLabel, FormButton } from './ui'
 
 function Signup() {
   const [username, setUsername] = useState('')

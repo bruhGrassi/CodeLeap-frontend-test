@@ -1,8 +1,5 @@
 import { useState } from 'react'
-import FormHeader from './ui/FormHeader'
-import FormInput from './ui/FormInput'
-import FormTextarea from './ui/FormTextarea'
-import FormButton from './ui/FormButton'
+import { FormHeader, FormInput, FormTextarea, FormButton } from './ui'
 
 function PostForm() {
   const [form, setForm] = useState({
