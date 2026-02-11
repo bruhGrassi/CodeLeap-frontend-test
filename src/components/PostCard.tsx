@@ -5,6 +5,7 @@ import editIcon from '../assets/bx_bx-edit.svg'
 import deleteIcon from '../assets/ic_baseline-delete-forever.svg'
 import DeletePostModal from './DeletePostModal'
 import EditPostModal from './EditPostModal'
+import { useRelativeTime } from '../hooks/useRelativeTime'
 
 export interface PostCardProps {
   id: number,
@@ -32,6 +33,7 @@ function PostCard({
   const showOwnerActions = isOwner
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
   const [isEditOpen, setIsEditOpen] = useState(false)
+  const relativeTime = useRelativeTime(timestamp)
 
   return (
     <>
@@ -65,7 +67,7 @@ function PostCard({
             <span className="font-bold text-neutral-400 text-base md:text-lg">
               @{username}
             </span>
-            <span className="font-normal text-base md:text-lg">{timestamp}</span>
+            <span className="font-normal text-base md:text-lg">{relativeTime}</span>
           </div>
 
           <p className="text-base md:text-lg font-normal text-neutral-900 leading-snug break-words whitespace-pre-line">
