@@ -26,7 +26,9 @@ function FormTextarea({
         onChange={onChange}
         placeholder={placeholder}
         className={`
-          h-[74px]
+          min-h-[74px]
+          max-h-[350px]
+          field-sizing-content
           w-full px-3 py-2 border border-main-border rounded-lg 
           text-neutral-900 placeholder-neutral-300 focus:outline-none 
           focus:ring-2 focus:ring-brand focus:border-transparent
