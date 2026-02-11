@@ -18,3 +18,8 @@ export interface PostCreate {
   title: string;
   content: string;
 }
+
+export interface PostUpdate {
+  title: string;
+  content: string;
+}

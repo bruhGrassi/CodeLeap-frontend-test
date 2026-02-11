@@ -19,11 +19,22 @@ export const usePosts = () => {
     onError: () => toast.error('Failed to create post'),
   });
 
+  const updateMutation = useMutation({
+    mutationFn: ({ id, data }: { id: number; data: any }) => postService.update(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
+      toast.success('Post updated successfully!');
+    },
+    onError: () => toast.error('Failed to update post'),
+  });
+
   return {
     posts: postsQuery.data?.results ?? [],
     isLoading: postsQuery.isLoading,
     isError: postsQuery.isError,
     createPost: createMutation.mutate,
-    isMutating: createMutation.isPending
+    updatePost: updateMutation.mutate,
+    isMutating: createMutation.isPending,
+    isUpdating: updateMutation.isPending,
   };
 };
