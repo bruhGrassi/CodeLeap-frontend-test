@@ -1,18 +1,37 @@
 import { Dialog } from '@headlessui/react'
-import { FormButton, FormHeader, Modal } from './ui'
+import { FormButton, FormHeader, Modal, LoadingText } from './ui'
+import { usePosts } from '../hooks/usePosts'
 
 interface DeletePostModalProps {
   id: number,
   open: boolean
   onClose: () => void
-  onConfirm: () => void
 }
 
 function DeletePostModal({
+  id,
   open,
   onClose,
-  onConfirm,
-}: DeletePostModalProps){
+}: DeletePostModalProps) {
+
+  const { deletePost, isDeleting } = usePosts()
+
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    deletePost(
+      id,
+      {
+        onSuccess: () => {
+          onClose();
+        }
+      }
+    );
+
+
+
+  };
+
   return (
     <Modal
       open={open}
@@ -26,18 +45,25 @@ function DeletePostModal({
         />
       </Dialog.Title>
 
-      <div className="mt-2 flex justify-end gap-4 px-2 pb-2">
+      <form className="mt-2 flex justify-end gap-4 px-2 pb-2" onSubmit={handleSubmit}>
         <FormButton variant="cancel" type="button" onClick={onClose}>
           Cancel
         </FormButton>
         <FormButton
           variant="delete"
-          type="button"
-          onClick={onConfirm}
+          type="submit"
+          disabled={isDeleting}
+          onClick={handleSubmit}
         >
-          Delete
+
+          {isDeleting ? (
+            <LoadingText text="Deleting" />
+          ) : (
+            'Delete'
+          )}
+
         </FormButton>
-      </div>
+      </form>
     </Modal>
   )
 }
