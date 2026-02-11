@@ -7,9 +7,7 @@ function App() {
   
   return (
     <>
-    {isLogged ?  <MainScreen/> :  <Signup />}
-      
-     
+    {isLogged ? <MainScreen/> :  <Signup />}
     </>
   )
 }
