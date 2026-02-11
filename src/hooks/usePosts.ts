@@ -28,13 +28,24 @@ export const usePosts = () => {
     onError: () => toast.error('Failed to update post'),
   });
 
+  const deleteMutation = useMutation({
+    mutationFn: postService.delete,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
+      toast.success('Post deleted successfully!');
+    },
+    onError: () => toast.error('Failed to delete post'),
+  });
+
   return {
     posts: postsQuery.data?.results ?? [],
     isLoading: postsQuery.isLoading,
     isError: postsQuery.isError,
     createPost: createMutation.mutate,
     updatePost: updateMutation.mutate,
+    deletePost: deleteMutation.mutate,
     isMutating: createMutation.isPending,
     isUpdating: updateMutation.isPending,
+    isDeleting: deleteMutation.isPending,
   };
 };

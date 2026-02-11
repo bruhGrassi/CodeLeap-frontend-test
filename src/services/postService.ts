@@ -36,4 +36,11 @@ export const postService = {
     return handleResponse<Post>(response);
   },
 
+  delete: async (id: number): Promise<void> => {
+    const response = await fetch(`${BASE_URL}${id}/`, {
+      method: 'DELETE',
+    });
+    if (!response.ok) throw new Error('Error on delete');
+  },
+
 }
