@@ -35,15 +35,15 @@ function PostCard({
 
   return (
     <>
-      <article className="h-[316px] w-full border border-neutral-300 rounded-2xl overflow-hidden flex flex-col bg-neutral-50">
-        <header className="h-[70px] w-full bg-brand text-neutral-50 flex items-center justify-between px-8 py-4">
-          <h2 className="font-bold text-[22px] leading-snug truncate">
+      <article className="min-h-[316px] w-full border border-neutral-300 rounded-2xl overflow-hidden flex flex-col bg-neutral-50">
+        <header className="h-[70px] w-full bg-brand text-neutral-50 flex items-center justify-between px-4 md:px-8 py-4">
+          <h2 className="font-bold text-lg md:text-1xl leading-snug truncate">
             {title}
           </h2>
 
           <div className="flex items-center gap-2">
             {showOwnerActions && (
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 md:gap-4">
                 <IconButton
                   icon={deleteIcon}
                   alt="Delete post"
@@ -61,14 +61,14 @@ function PostCard({
         </header>
 
         <div className="flex-1 px-4 py-4 flex flex-col gap-4">
-          <div className="flex items-center justify-between text-neutral-400 text-[18px] leading-none">
-            <span className="font-bold text-neutral-400 h-[18px]">
+          <div className="flex items-center justify-between text-neutral-400 text-lg leading-none">
+            <span className="font-bold text-neutral-400 text-base md:text-lg">
               @{username}
             </span>
-            <span className="font-normal">{timestamp}</span>
+            <span className="font-normal text-base md:text-lg">{timestamp}</span>
           </div>
 
-          <p className="text-[18px] font-normal text-neutral-900 leading-snug break-words whitespace-pre-line">
+          <p className="text-base md:text-lg font-normal text-neutral-900 leading-snug break-words whitespace-pre-line">
             {content}
           </p>
 

@@ -20,6 +20,8 @@
   --color-main-bg: var(--color-neutral-100);
   --color-main-border: var(--color-neutral-200);
 
+  --text-1xl: 22px;
+
   --animate-shimmer: shimmer 2s infinite linear;
   
   @keyframes shimmer {

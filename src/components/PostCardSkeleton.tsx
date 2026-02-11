@@ -11,7 +11,7 @@ function PostCardSkeleton() {
           </header>
 
           <div className="flex-1 px-4 py-4 flex flex-col gap-4">
-            <div className="flex items-center justify-between text-[18px] leading-none">
+            <div className="flex items-center justify-between text-lg leading-none">
               <span className="h-[18px] w-32 rounded-md bg-neutral-100 skeleton-shimmer" />
               <span className="h-[18px] w-24 rounded-md bg-neutral-100 skeleton-shimmer" />
             </div>

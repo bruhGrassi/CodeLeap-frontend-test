@@ -17,12 +17,12 @@ function DeletePostModal({
     <Modal
       open={open}
       onClose={onClose}
-      className="h-[146px] px-4 py-4 justify-between"
+      className="h-[162px] md:h-[146px] px-4 py-4 justify-between"
     >
       <Dialog.Title as="div">
         <FormHeader
           title="Are you sure you want to delete this item?"
-          className="mb-0 px-2 py-2 text-[22px] leading-snug text-black"
+          className="mb-0 px-2 py-2 leading-snug text-black"
         />
       </Dialog.Title>
 

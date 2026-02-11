@@ -24,12 +24,12 @@ function EditPostModal({
     <Modal
       open={open}
       onClose={onClose}
-      className="max-h-[80vh] w-[660px] px-6 py-6 justify-between"
+      className="md:max-h-[80vh] max-h-[90vh] w-[660px] px-6 py-6 justify-between"
     >
       <Dialog.Title as="div">
         <FormHeader
           title="Edit item"
-          className="mb-4 text-[22px] leading-snug text-black"
+          className="mb-4 leading-snug text-black"
         />
       </Dialog.Title>
 

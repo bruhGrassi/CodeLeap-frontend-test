@@ -31,7 +31,7 @@ function MainScreen() {
 
       <main className="w-[800px] bg-neutral-50">
 
-        <h1 className="h-[80px] w-full bg-brand flex items-center px-8 text-[22px] font-bold text-neutral-50">
+        <h1 className="h-[80px] w-full bg-brand flex items-center px-8 text-1xl font-bold text-neutral-50">
           CodeLeap Network
         </h1>
 
