@@ -1,6 +1,7 @@
-import { Dialog } from '@headlessui/react'
-import { FormButton, FormHeader, FormInput, FormTextarea, Modal } from './ui'
 import { useState } from 'react'
+import { Dialog } from '@headlessui/react'
+import { FormButton, FormHeader, FormInput, FormTextarea, Modal, LoadingText } from './ui'
+import { usePosts } from '../hooks/usePosts'
 
 interface EditPostModalProps {
   id: number,
@@ -8,17 +9,34 @@ interface EditPostModalProps {
   title: string
   content: string
   onClose: () => void
-  onSave: (values: { title: string; content: string }) => void
 }
 
 function EditPostModal({
+  id,
   open,
   title,
   content,
   onClose,
-  onSave,
-}: EditPostModalProps){
+}: EditPostModalProps) {
   const [form, setForm] = useState({ title, content })
+
+  const { updatePost, isUpdating } = usePosts()
+
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    updatePost(
+      { id, data: form },
+      {
+        onSuccess: () => {
+          onClose();
+        }
+      }
+    );
+
+
+
+  };
 
   return (
     <Modal
@@ -35,10 +53,7 @@ function EditPostModal({
 
       <form
         className="flex flex-1 flex-col gap-4"
-        onSubmit={event => {
-          event.preventDefault()
-          onSave(form)
-        }}
+        onSubmit={handleSubmit}
       >
         <FormInput
           label="Title"
@@ -75,8 +90,15 @@ function EditPostModal({
           <FormButton
             variant="save"
             type="submit"
+            disabled={isUpdating}
           >
-            Save
+
+            {isUpdating ? (
+              <LoadingText text="Saving" />
+            ) : (
+              'Save'
+            )}
+
           </FormButton>
         </div>
       </form>

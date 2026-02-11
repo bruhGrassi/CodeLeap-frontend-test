@@ -14,7 +14,7 @@ export interface PostCardProps {
   timestamp: string
   content: string
   isOwner?: boolean
-  onEdit?: () => void
+
   onDelete?: () => void
   headerActions?: ReactNode
 }
@@ -26,10 +26,9 @@ function PostCard({
   timestamp,
   content,
   isOwner = false,
-  onEdit,
   onDelete,
   headerActions,
-}: PostCardProps)  {
+}: PostCardProps) {
   const showOwnerActions = isOwner
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
   const [isEditOpen, setIsEditOpen] = useState(false)
@@ -86,15 +85,13 @@ function PostCard({
         }}
       />
 
-      <EditPostModal       
-          id={id}
-          title={title}
-          content={content}
-          open={isEditOpen}
-          onClose={() => setIsEditOpen(false)}
-          onSave={() => {
-            onEdit?.()
-          }}
+      <EditPostModal
+        id={id}
+        title={title}
+        content={content}
+        open={isEditOpen}
+        onClose={() => setIsEditOpen(false)}
+
       />
     </>
   )
