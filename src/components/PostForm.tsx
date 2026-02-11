@@ -2,7 +2,11 @@ import { useState } from 'react'
 import { FormHeader, FormInput, FormTextarea, FormButton, LoadingText } from './ui'
 import { usePosts } from '../hooks/usePosts'
 
-function PostForm() {
+interface PostFormProps {
+  username: string;
+}
+
+function PostForm({ username }: PostFormProps) {
   const { createPost, isMutating } = usePosts()
 
   const [form, setForm] = useState({
@@ -14,8 +18,6 @@ function PostForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    const username = 'JosephGM';
 
     createPost(
       { ...form, username },

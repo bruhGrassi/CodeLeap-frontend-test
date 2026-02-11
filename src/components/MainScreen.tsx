@@ -20,7 +20,7 @@ function MainScreen() {
         username={post.username}
         timestamp={post.created_datetime}
         content={post.content}
-        isOwner={post.username === 'Victor'}
+        isOwner={post.username === 'GeronimohGM'}
       />
     ))
   }
@@ -35,7 +35,7 @@ function MainScreen() {
         </h1>
 
         <section className="w-full bg--neutral-50 p-4 grid gap-4">
-          <PostForm />
+          <PostForm username="GeronimohGM" />
 
           <div className="grid gap-4">
             {renderContent()}
