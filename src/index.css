@@ -19,6 +19,17 @@
 
   --color-main-bg: var(--color-neutral-100);
   --color-main-border: var(--color-neutral-200);
+
+  --animate-shimmer: shimmer 2s infinite linear;
+  
+  @keyframes shimmer {
+    from {
+      background-position: -200% 0;
+    }
+    to {
+      background-position: 200% 0;
+    }
+  }
 }
 
 @layer base {
@@ -46,4 +57,17 @@
   button{
     cursor: pointer;
   }
+}
+
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg, 
+    var(--color-neutral-100) 25%, 
+    var(--color-neutral-200) 50%, 
+    var(--color-neutral-100) 75%
+  );
+  background-size: 200% 100%;
+  
+  animation: var(--animate-shimmer);
 }
