@@ -16,7 +16,7 @@ function FormInput({
   return (
     <div className="flex flex-col gap-1">
       {label && (
-        <label className="text-neutral-900 mb-1">
+        <label className="text-neutral-900">
           {label}
         </label>
       )}
