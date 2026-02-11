@@ -1,18 +1,39 @@
 import { useState } from 'react'
-import { FormHeader, FormInput, FormTextarea, FormButton } from './ui'
+import { FormHeader, FormInput, FormTextarea, FormButton, LoadingText } from './ui'
+import { usePosts } from '../hooks/usePosts'
 
 function PostForm() {
+  const { createPost, isMutating } = usePosts()
+
   const [form, setForm] = useState({
     title: '',
     content: '',
   })
 
-  const isDisabled = Object.values(form).some(value => value.trim() === '');
+  const isDisabled = Object.values(form).some(value => value.trim() === '') || isMutating;
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const username = 'JosephGM';
+
+    createPost(
+      { ...form, username },
+      {
+        onSuccess: () => {
+          setForm({ title: '', content: '' });
+        }
+      }
+    );
+  };
 
   return (
-    <form className="bg-neutral-50 rounded-2xl p-6 w-full border border-neutral-300">
+    <form
+      onSubmit={handleSubmit}
+      className="bg-neutral-50 rounded-2xl p-6 w-full border border-neutral-300"
+    >
       <FormHeader title="What’s on your mind?" />
-      
+
       <FormInput
         label="Title"
         placeholder="Hello world"
@@ -40,8 +61,15 @@ function PostForm() {
       </div>
 
       <div className="flex justify-end mt-4">
-        <FormButton disabled={isDisabled}>
-          Create
+        <FormButton
+          type="submit"
+          disabled={isDisabled}
+        >
+          {isMutating ? (
+            <LoadingText text="Creating" />
+          ) : (
+            'Create'
+          )}
         </FormButton>
       </div>
     </form>
