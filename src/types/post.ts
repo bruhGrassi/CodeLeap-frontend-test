@@ -12,3 +12,9 @@ export interface PostListResponse {
   previous: string | null;
   results: Post[];
 }
+
+export interface PostCreate {
+  username: string;
+  title: string;
+  content: string;
+}
