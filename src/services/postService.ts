@@ -1,6 +1,5 @@
 import type { PostListResponse, PostCreate, Post, PostUpdate } from "../types/post";
-
-const BASE_URL = 'https://dev.codeleap.co.uk/careers/';
+import { BASE_URL } from '../constants/api';
 
 
 async function handleResponse<T>(response: Response): Promise<T> {
@@ -13,8 +12,9 @@ async function handleResponse<T>(response: Response): Promise<T> {
 
 export const postService = {
 
-  list: async (): Promise<PostListResponse> => {
-    const response = await fetch(BASE_URL);
+  list: async (pageParam?: unknown): Promise<PostListResponse> => {
+    const url = typeof pageParam === 'string' ? pageParam : BASE_URL;
+    const response = await fetch(url);
     return handleResponse<PostListResponse>(response);
   },
 

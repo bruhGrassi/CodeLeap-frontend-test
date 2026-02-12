@@ -1,13 +1,16 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { postService } from '../services/postService';
 import { toast } from 'sonner';
+import { BASE_URL } from '../constants/api';
 
 export const usePosts = () => {
   const queryClient = useQueryClient();
 
-  const postsQuery = useQuery({
+  const postsQuery = useInfiniteQuery({
     queryKey: ['posts'],
-    queryFn: postService.list,
+    queryFn: ({ pageParam }) => postService.list(pageParam),
+    initialPageParam: BASE_URL,
+    getNextPageParam: (lastPage) => lastPage.next || undefined,
   });
 
   const createMutation = useMutation({
@@ -38,9 +41,12 @@ export const usePosts = () => {
   });
 
   return {
-    posts: postsQuery.data?.results ?? [],
+    postsData: postsQuery.data, 
     isLoading: postsQuery.isLoading,
     isError: postsQuery.isError,
+    fetchNextPage: postsQuery.fetchNextPage,
+    hasNextPage: postsQuery.hasNextPage,
+    isFetchingNextPage: postsQuery.isFetchingNextPage,
     createPost: createMutation.mutate,
     updatePost: updateMutation.mutate,
     deletePost: deleteMutation.mutate,

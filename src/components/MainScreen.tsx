@@ -1,10 +1,12 @@
+import { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
+import { usePosts } from '../hooks/usePosts';
 import PostForm from "./PostForm";
 import PostCard from "./PostCard";
 import PostCardSkeleton from "./PostCardSkeleton";
 import EmptyPostsMessage from "./EmptyPostsMessage";
 import logoutIcon from '../assets/logout.svg'
 import { IconButton } from './ui'
-import { usePosts } from "../hooks/usePosts";
 
 interface MainScreenProps {
   currentUser: string;
@@ -12,24 +14,50 @@ interface MainScreenProps {
 }
 
 function MainScreen({ currentUser, onLogout }: MainScreenProps) {
-  const { posts, isLoading } = usePosts();
+  const {
+    postsData,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading
+  } = usePosts();
+
+  const { ref, inView } = useInView();
+
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
+
+  const allPosts = postsData?.pages.flatMap(page => page.results) ?? [];
 
   const renderContent = () => {
     if (isLoading) return <PostCardSkeleton />;
 
-    if (posts.length === 0) return <EmptyPostsMessage />;
+    if (allPosts.length === 0) return <EmptyPostsMessage />;
 
-    return posts.map((post) => (
-      <PostCard
-        key={post.id}
-        id={post.id}
-        title={post.title}
-        username={post.username}
-        timestamp={post.created_datetime}
-        content={post.content}
-        isOwner={post.username === currentUser}
-      />
-    ))
+    return (
+      <>
+        {allPosts.map((post) => (
+          <PostCard
+            key={post.id}
+            id={post.id}
+            title={post.title}
+            username={post.username}
+            timestamp={post.created_datetime}
+            content={post.content}
+            isOwner={post.username === currentUser}
+          />
+        ))}
+
+        <div ref={ref} className="h-10 flex justify-center items-center">
+          {isFetchingNextPage && (
+            <p className="text-neutral-400 animate-pulse">Loading more...</p>
+          )}
+        </div>
+      </>
+    );
   }
 
   return (
