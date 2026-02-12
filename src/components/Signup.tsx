@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { FormHeader, FormInput, FormLabel, FormButton } from './ui'
+import { FormHeader, FormInput, FormButton } from './ui'
 
 interface SignupProps {
   onLogin: (username: string) => void;
@@ -21,9 +21,8 @@ function Signup({ onLogin }: SignupProps) {
       <form className="bg-neutral-50 rounded-2xl p-6 w-[500px] shadow-lg" onSubmit={handleSubmit}>
         <FormHeader title="Welcome to CodeLeap network!" />
 
-        <FormLabel text="Please enter your username" />
-
         <FormInput
+          label='Please enter your username'
           placeholder="John doe"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
