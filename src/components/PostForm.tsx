@@ -32,7 +32,10 @@ function PostForm({ username }: PostFormProps) {
   return (
     <form
       onSubmit={handleSubmit}
+      role="form"
       className="bg-neutral-50 rounded-2xl p-6 w-full border border-neutral-300"
+      aria-busy={isMutating}
+      aria-label="Creating post"
     >
       <FormHeader title="What’s on your mind?" />
 
@@ -46,6 +49,7 @@ function PostForm({ username }: PostFormProps) {
             title: e.target.value,
           }))
         }
+        required
       />
 
       <div className="pt-4">
@@ -59,6 +63,7 @@ function PostForm({ username }: PostFormProps) {
               content: e.target.value,
             }))
           }
+          required
         />
       </div>
 

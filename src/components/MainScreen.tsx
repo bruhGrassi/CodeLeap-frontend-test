@@ -72,7 +72,7 @@ function MainScreen({ currentUser, onLogout }: MainScreenProps) {
   return (
     <div className="w-full bg-main-bg min-h-screen flex justify-center" >
 
-      <main className="w-[800px] bg-neutral-50">
+      <main className="w-[800px] bg-neutral-50" role="main">
 
         <h1 className="h-[80px] w-full bg-brand flex items-center justify-between px-8 text-1xl font-bold text-neutral-50">
           CodeLeap Network
@@ -81,10 +81,11 @@ function MainScreen({ currentUser, onLogout }: MainScreenProps) {
             icon={logoutIcon}
             alt="Logout"
             onClick={() => onLogout()}
+            aria-label="Logout from CodeLeap Network"
           />
         </h1>
 
-        <section className="w-full bg--neutral-50 p-4 grid gap-4">
+        <section className="w-full bg-neutral-50 p-4 grid gap-4" aria-busy={isLoading} aria-label="Posts feed" aria-live="polite">
           <div ref={topRef} />
           <PostForm username={currentUser} />
 

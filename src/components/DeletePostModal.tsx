@@ -27,9 +27,6 @@ function DeletePostModal({
         }
       }
     );
-
-
-
   };
 
   return (
@@ -45,7 +42,7 @@ function DeletePostModal({
         />
       </Dialog.Title>
 
-      <form className="mt-2 flex justify-end gap-4 px-2 pb-2" onSubmit={handleSubmit}>
+      <form role="form" className="mt-2 flex justify-end gap-4 px-2 pb-2" onSubmit={handleSubmit} aria-busy={isDeleting} aria-label="Deleting post">
         <FormButton variant="cancel" type="button" onClick={onClose}>
           Cancel
         </FormButton>

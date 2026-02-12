@@ -12,6 +12,7 @@ function FormButton({
   disabled = false, 
   variant = 'primary',
   className = '',
+  type = 'button',
   ...props 
 }: FormButtonProps) {
   const canBeDisabled = variant === 'primary' 
@@ -32,6 +33,7 @@ function FormButton({
   return (
     <button
       disabled={actualDisabled}
+      type={type}
       className={`${baseStyles} ${variantStyles[variant]} ${customWidth} ${className}`}
       {...props}
     >

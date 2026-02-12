@@ -18,7 +18,7 @@ function Signup({ onLogin }: SignupProps) {
 
   return (
     <div className="w-full bg-main-bg min-h-screen p-4 flex items-center justify-center">
-      <form className="bg-neutral-50 rounded-2xl p-6 w-[500px] shadow-lg" onSubmit={handleSubmit}>
+      <form role="form" className="bg-neutral-50 rounded-2xl p-6 w-[500px] shadow-lg" onSubmit={handleSubmit}>
         <FormHeader title="Welcome to CodeLeap network!" />
 
         <FormInput
@@ -29,7 +29,7 @@ function Signup({ onLogin }: SignupProps) {
         />
 
         <div className="flex justify-end mt-4">
-          <FormButton type="submit" disabled={isDisabled}>
+          <FormButton type="submit" disabled={isDisabled} aria-label="Enter CodeLeap network">
             ENTER
           </FormButton>
         </div>

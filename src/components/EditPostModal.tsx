@@ -22,7 +22,6 @@ function EditPostModal({
 
   const { updatePost, isUpdating } = usePosts()
 
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     updatePost(
@@ -33,9 +32,6 @@ function EditPostModal({
         }
       }
     );
-
-
-
   };
 
   return (
@@ -52,8 +48,11 @@ function EditPostModal({
       </Dialog.Title>
 
       <form
+        role="form"
         className="flex flex-1 flex-col gap-4"
         onSubmit={handleSubmit}
+        aria-busy={isUpdating}
+        aria-label="Updating post"
       >
         <FormInput
           label="Title"
