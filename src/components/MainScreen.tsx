@@ -2,13 +2,16 @@ import PostForm from "./PostForm";
 import PostCard from "./PostCard";
 import PostCardSkeleton from "./PostCardSkeleton";
 import EmptyPostsMessage from "./EmptyPostsMessage";
+import logoutIcon from '../assets/logout.svg'
+import { IconButton } from './ui'
 import { usePosts } from "../hooks/usePosts";
 
 interface MainScreenProps {
   currentUser: string;
+  onLogout: () => void;
 }
 
-function MainScreen({ currentUser }: MainScreenProps) {
+function MainScreen({ currentUser, onLogout }: MainScreenProps) {
   const { posts, isLoading } = usePosts();
 
   const renderContent = () => {
@@ -34,8 +37,14 @@ function MainScreen({ currentUser }: MainScreenProps) {
 
       <main className="w-[800px] bg-neutral-50">
 
-        <h1 className="h-[80px] w-full bg-brand flex items-center px-8 text-1xl font-bold text-neutral-50">
+        <h1 className="h-[80px] w-full bg-brand flex items-center justify-between px-8 text-1xl font-bold text-neutral-50">
           CodeLeap Network
+
+          <IconButton
+            icon={logoutIcon}
+            alt="Logout"
+            onClick={() => onLogout()}
+          />
         </h1>
 
         <section className="w-full bg--neutral-50 p-4 grid gap-4">

@@ -14,11 +14,16 @@ function App() {
     setUsername(name);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('@CodeLeap:username');
+    setUsername(null);
+  };
+
   return (
     <>
       <Toaster position="top-right" richColors />
 
-      {!username ? <Signup onLogin={handleLogin} /> : <MainScreen currentUser={username} />}
+      {!username ? <Signup onLogin={handleLogin} /> : <MainScreen currentUser={username} onLogout={handleLogout} />}
     </>
   )
 }
