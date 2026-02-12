@@ -4,7 +4,11 @@ import PostCardSkeleton from "./PostCardSkeleton";
 import EmptyPostsMessage from "./EmptyPostsMessage";
 import { usePosts } from "../hooks/usePosts";
 
-function MainScreen() {
+interface MainScreenProps {
+  currentUser: string;
+}
+
+function MainScreen({ currentUser }: MainScreenProps) {
   const { posts, isLoading } = usePosts();
 
   const renderContent = () => {
@@ -20,7 +24,7 @@ function MainScreen() {
         username={post.username}
         timestamp={post.created_datetime}
         content={post.content}
-        isOwner={post.username === 'GeronimohGM'}
+        isOwner={post.username === currentUser}
       />
     ))
   }
@@ -35,7 +39,7 @@ function MainScreen() {
         </h1>
 
         <section className="w-full bg--neutral-50 p-4 grid gap-4">
-          <PostForm username="GeronimohGM" />
+          <PostForm username={currentUser} />
 
           <div className="grid gap-4">
             {renderContent()}
