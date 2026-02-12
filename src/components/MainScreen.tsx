@@ -7,6 +7,7 @@ import PostCardSkeleton from "./PostCardSkeleton";
 import EmptyPostsMessage from "./EmptyPostsMessage";
 import logoutIcon from '../assets/logout.svg'
 import { IconButton } from './ui'
+import ScrollToTopButton from './ScrollToTopButton';
 
 interface MainScreenProps {
   currentUser: string;
@@ -23,6 +24,13 @@ function MainScreen({ currentUser, onLogout }: MainScreenProps) {
   } = usePosts();
 
   const { ref, inView } = useInView();
+
+  const { ref: topRef, inView: isAtTop } = useInView({
+    threshold: 0,
+    initialInView: true,
+  });
+
+  const shouldShowScrollUp = !isAtTop
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -60,8 +68,9 @@ function MainScreen({ currentUser, onLogout }: MainScreenProps) {
     );
   }
 
+
   return (
-    <div className="w-full bg-main-bg min-h-screen flex justify-center">
+    <div className="w-full bg-main-bg min-h-screen flex justify-center" >
 
       <main className="w-[800px] bg-neutral-50">
 
@@ -76,11 +85,17 @@ function MainScreen({ currentUser, onLogout }: MainScreenProps) {
         </h1>
 
         <section className="w-full bg--neutral-50 p-4 grid gap-4">
+          <div ref={topRef} />
           <PostForm username={currentUser} />
 
           <div className="grid gap-4">
             {renderContent()}
           </div>
+
+          {shouldShowScrollUp && (
+            <ScrollToTopButton />
+          )}
+
         </section>
       </main>
     </div>
