@@ -1,21 +1,22 @@
 import { useState } from 'react';
 import Signup from './components/Signup'
 import MainScreen from './components/MainScreen'
+import { STORAGE_KEYS } from './constants/storage';
 import { Toaster } from 'sonner';
 
 
 function App() {
   const [username, setUsername] = useState<string | null>(
-    localStorage.getItem('@CodeLeap:username')
+    localStorage.getItem(STORAGE_KEYS.USER_NAME)
   );
 
   const handleLogin = (name: string) => {
-    localStorage.setItem('@CodeLeap:username', name);
+    localStorage.setItem(STORAGE_KEYS.USER_NAME, name);
     setUsername(name);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('@CodeLeap:username');
+    localStorage.removeItem(STORAGE_KEYS.USER_NAME);
     setUsername(null);
   };
 
