@@ -2,6 +2,8 @@
 
 A social media application built with React, TypeScript, and Vite. Users can create, read, update, and delete posts.
 
+<img width="1455" height="837" alt="Screenshot 2026-02-12 at 13 48 12" src="https://github.com/user-attachments/assets/7b5f032a-5504-4e70-b845-d5d25053e99b" />
+
 ## Tech Stack
 
 - **Frontend**: React 19 with TypeScript
