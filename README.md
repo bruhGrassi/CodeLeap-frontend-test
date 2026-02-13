@@ -36,6 +36,12 @@ git clone <repository-url>
 npm install
 ```
 
+3. Create environment configuration file:
+
+```bash
+cp .env.sample .env
+```
+
 ### Development
 
 Start the development server with hot module replacement (HMR):
