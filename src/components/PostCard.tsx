@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import { useState, useRef, useEffect } from "react";
 import { IconButton } from "./ui";
 import editIcon from "../assets/edit.svg";
@@ -14,7 +13,6 @@ export interface PostCardProps {
   timestamp: string;
   content: string;
   isOwner?: boolean;
-  headerActions?: ReactNode;
 }
 
 const CONTENT_MAX_HEIGHT = 300;
@@ -26,9 +24,7 @@ function PostCard({
   timestamp,
   content,
   isOwner = false,
-  headerActions,
 }: PostCardProps) {
-  const showOwnerActions = isOwner;
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -50,28 +46,25 @@ function PostCard({
           "w-full border border-neutral-300 rounded-2xl flex flex-col bg-neutral-50 transition-all duration-300"
         }
       >
-        <header className="h-[70px] w-full bg-brand text-neutral-50 flex items-center justify-between px-4 md:px-8 py-4 flex-shrink-0 rounded-t-[16px]">
+        <header className="h-17.5 w-full bg-brand text-neutral-50 flex items-center justify-between px-4 md:px-8 py-4 flex-shrink-0 rounded-t-2xl">
           <h2 className="font-bold text-lg md:text-1xl leading-snug truncate">
             {title}
           </h2>
 
-          <div className="flex items-center gap-2">
-            {showOwnerActions && (
-              <div className="flex items-center gap-2 md:gap-4">
-                <IconButton
-                  icon={deleteIcon}
-                  alt="Delete post"
-                  onClick={() => setIsDeleteOpen(true)}
-                />
-                <IconButton
-                  icon={editIcon}
-                  alt="Edit post"
-                  onClick={() => setIsEditOpen(true)}
-                />
-              </div>
-            )}
-            {headerActions}
-          </div>
+          {isOwner && (
+            <div className="flex items-center gap-2 md:gap-4">
+              <IconButton
+                icon={deleteIcon}
+                alt="Delete post"
+                onClick={() => setIsDeleteOpen(true)}
+              />
+              <IconButton
+                icon={editIcon}
+                alt="Edit post"
+                onClick={() => setIsEditOpen(true)}
+              />
+            </div>
+          )}
         </header>
 
         <div
