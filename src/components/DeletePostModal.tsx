@@ -43,12 +43,7 @@ function DeletePostModal({ id, open, onClose }: DeletePostModalProps) {
         <FormButton variant="cancel" type="button" onClick={onClose}>
           Cancel
         </FormButton>
-        <FormButton
-          variant="delete"
-          type="submit"
-          disabled={isDeleting}
-          onClick={handleSubmit}
-        >
+        <FormButton variant="delete" type="submit" disabled={isDeleting}>
           {isDeleting ? <LoadingText text="Deleting" /> : "Delete"}
         </FormButton>
       </form>
