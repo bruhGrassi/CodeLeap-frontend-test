@@ -1,24 +1,17 @@
-import type { ReactNode } from 'react'
-import { Dialog } from '@headlessui/react'
+import type { ReactNode } from "react";
+import { Dialog } from "@headlessui/react";
 
 export interface ModalProps {
-  open: boolean
-  onClose: () => void
-  children: ReactNode
-  className?: string
+  open: boolean;
+  onClose: () => void;
+  children: ReactNode;
+  className?: string;
 }
 
-function Modal({ open, onClose, children, className = '' }: ModalProps) {
+function Modal({ open, onClose, children, className = "" }: ModalProps) {
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      className="relative z-50"
-    >
-      <div
-        className="fixed inset-0 bg-overlay"
-        aria-hidden="true"
-      />
+    <Dialog open={open} onClose={onClose} className="relative z-50">
+      <div className="fixed inset-0 bg-overlay" aria-hidden="true" />
 
       <div className="fixed inset-0 flex items-center justify-center px-4">
         <Dialog.Panel
@@ -28,8 +21,7 @@ function Modal({ open, onClose, children, className = '' }: ModalProps) {
         </Dialog.Panel>
       </div>
     </Dialog>
-  )
+  );
 }
 
-export default Modal
-
+export default Modal;

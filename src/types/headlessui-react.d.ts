@@ -1,2 +1,1 @@
-declare module '@headlessui/react'
-
+declare module "@headlessui/react";

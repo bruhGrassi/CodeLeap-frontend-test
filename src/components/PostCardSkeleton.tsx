@@ -28,8 +28,7 @@ function PostCardSkeleton() {
         </article>
       ))}
     </>
-  )
+  );
 }
 
-export default PostCardSkeleton
-
+export default PostCardSkeleton;

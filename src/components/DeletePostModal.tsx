@@ -1,32 +1,23 @@
-import { Dialog } from '@headlessui/react'
-import { FormButton, FormHeader, Modal, LoadingText } from './ui'
-import { usePosts } from '../hooks/usePosts'
+import { Dialog } from "@headlessui/react";
+import { FormButton, FormHeader, Modal, LoadingText } from "./ui";
+import { usePosts } from "../hooks/usePosts";
 
 interface DeletePostModalProps {
-  id: number,
-  open: boolean
-  onClose: () => void
+  id: number;
+  open: boolean;
+  onClose: () => void;
 }
 
-function DeletePostModal({
-  id,
-  open,
-  onClose,
-}: DeletePostModalProps) {
-
-  const { deletePost, isDeleting } = usePosts()
-
+function DeletePostModal({ id, open, onClose }: DeletePostModalProps) {
+  const { deletePost, isDeleting } = usePosts();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    deletePost(
-      id,
-      {
-        onSuccess: () => {
-          onClose();
-        }
-      }
-    );
+    deletePost(id, {
+      onSuccess: () => {
+        onClose();
+      },
+    });
   };
 
   return (
@@ -42,7 +33,13 @@ function DeletePostModal({
         />
       </Dialog.Title>
 
-      <form role="form" className="mt-2 flex justify-end gap-4 px-2 pb-2" onSubmit={handleSubmit} aria-busy={isDeleting} aria-label="Deleting post">
+      <form
+        role="form"
+        className="mt-2 flex justify-end gap-4 px-2 pb-2"
+        onSubmit={handleSubmit}
+        aria-busy={isDeleting}
+        aria-label="Deleting post"
+      >
         <FormButton variant="cancel" type="button" onClick={onClose}>
           Cancel
         </FormButton>
@@ -52,18 +49,11 @@ function DeletePostModal({
           disabled={isDeleting}
           onClick={handleSubmit}
         >
-
-          {isDeleting ? (
-            <LoadingText text="Deleting" />
-          ) : (
-            'Delete'
-          )}
-
+          {isDeleting ? <LoadingText text="Deleting" /> : "Delete"}
         </FormButton>
       </form>
     </Modal>
-  )
+  );
 }
 
-export default DeletePostModal
-
+export default DeletePostModal;

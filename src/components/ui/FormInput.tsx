@@ -1,25 +1,21 @@
-import type { InputHTMLAttributes } from 'react'
+import type { InputHTMLAttributes } from "react";
 
 interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label?: string
-  value: string
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  label?: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-function FormInput({ 
-  label, 
-  value, 
-  onChange, 
-  className = '',
-  ...props 
+function FormInput({
+  label,
+  value,
+  onChange,
+  className = "",
+  ...props
 }: FormInputProps) {
   return (
     <div className="flex flex-col gap-1">
-      {label && (
-        <label className="text-neutral-900">
-          {label}
-        </label>
-      )}
+      {label && <label className="text-neutral-900">{label}</label>}
       <input
         type="text"
         value={value}
@@ -28,7 +24,7 @@ function FormInput({
         {...props}
       />
     </div>
-  )
+  );
 }
 
-export default FormInput
+export default FormInput;

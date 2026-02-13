@@ -1,14 +1,21 @@
-import { useState } from 'react'
-import { Dialog } from '@headlessui/react'
-import { FormButton, FormHeader, FormInput, FormTextarea, Modal, LoadingText } from './ui'
-import { usePosts } from '../hooks/usePosts'
+import { useState } from "react";
+import { Dialog } from "@headlessui/react";
+import {
+  FormButton,
+  FormHeader,
+  FormInput,
+  FormTextarea,
+  Modal,
+  LoadingText,
+} from "./ui";
+import { usePosts } from "../hooks/usePosts";
 
 interface EditPostModalProps {
-  id: number,
-  open: boolean
-  title: string
-  content: string
-  onClose: () => void
+  id: number;
+  open: boolean;
+  title: string;
+  content: string;
+  onClose: () => void;
 }
 
 function EditPostModal({
@@ -18,9 +25,9 @@ function EditPostModal({
   content,
   onClose,
 }: EditPostModalProps) {
-  const [form, setForm] = useState({ title, content })
+  const [form, setForm] = useState({ title, content });
 
-  const { updatePost, isUpdating } = usePosts()
+  const { updatePost, isUpdating } = usePosts();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,8 +36,8 @@ function EditPostModal({
       {
         onSuccess: () => {
           onClose();
-        }
-      }
+        },
+      },
     );
   };
 
@@ -58,8 +65,8 @@ function EditPostModal({
           label="Title"
           placeholder="Hello world"
           value={form.title}
-          onChange={event =>
-            setForm(prev => ({
+          onChange={(event) =>
+            setForm((prev) => ({
               ...prev,
               title: event.target.value,
             }))
@@ -70,8 +77,8 @@ function EditPostModal({
           label="Content"
           placeholder="Content here"
           value={form.content}
-          onChange={event =>
-            setForm(prev => ({
+          onChange={(event) =>
+            setForm((prev) => ({
               ...prev,
               content: event.target.value,
             }))
@@ -79,31 +86,16 @@ function EditPostModal({
         />
 
         <div className="mt-2 flex justify-end gap-4">
-          <FormButton
-            variant="cancel"
-            type="button"
-            onClick={onClose}
-          >
+          <FormButton variant="cancel" type="button" onClick={onClose}>
             Cancel
           </FormButton>
-          <FormButton
-            variant="save"
-            type="submit"
-            disabled={isUpdating}
-          >
-
-            {isUpdating ? (
-              <LoadingText text="Saving" />
-            ) : (
-              'Save'
-            )}
-
+          <FormButton variant="save" type="submit" disabled={isUpdating}>
+            {isUpdating ? <LoadingText text="Saving" /> : "Save"}
           </FormButton>
         </div>
       </form>
     </Modal>
-  )
+  );
 }
 
-export default EditPostModal
-
+export default EditPostModal;

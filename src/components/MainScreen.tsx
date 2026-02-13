@@ -1,13 +1,13 @@
-import { useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
-import { usePosts } from '../hooks/usePosts';
+import { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
+import { usePosts } from "../hooks/usePosts";
 import PostForm from "./PostForm";
 import PostCard from "./PostCard";
 import PostCardSkeleton from "./PostCardSkeleton";
 import EmptyPostsMessage from "./EmptyPostsMessage";
-import logoutIcon from '../assets/logout.svg'
-import { IconButton } from './ui'
-import ScrollToTopButton from './ScrollToTopButton';
+import logoutIcon from "../assets/logout.svg";
+import { IconButton } from "./ui";
+import ScrollToTopButton from "./ScrollToTopButton";
 
 interface MainScreenProps {
   currentUser: string;
@@ -20,7 +20,7 @@ function MainScreen({ currentUser, onLogout }: MainScreenProps) {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    isLoading
+    isLoading,
   } = usePosts();
 
   const { ref, inView } = useInView();
@@ -30,7 +30,7 @@ function MainScreen({ currentUser, onLogout }: MainScreenProps) {
     initialInView: true,
   });
 
-  const shouldShowScrollUp = !isAtTop
+  const shouldShowScrollUp = !isAtTop;
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -38,7 +38,7 @@ function MainScreen({ currentUser, onLogout }: MainScreenProps) {
     }
   }, [inView, hasNextPage, fetchNextPage]);
 
-  const allPosts = postsData?.pages.flatMap(page => page.results) ?? [];
+  const allPosts = postsData?.pages.flatMap((page) => page.results) ?? [];
 
   const renderContent = () => {
     if (isLoading) return <PostCardSkeleton />;
@@ -66,17 +66,13 @@ function MainScreen({ currentUser, onLogout }: MainScreenProps) {
         </div>
       </>
     );
-  }
-
+  };
 
   return (
-    <div className="w-full bg-main-bg min-h-screen flex justify-center" >
-
+    <div className="w-full bg-main-bg min-h-screen flex justify-center">
       <main className="w-[800px] bg-neutral-50" role="main">
-
         <h1 className="h-[80px] w-full bg-brand flex items-center justify-between px-8 text-1xl font-bold text-neutral-50">
           CodeLeap Network
-
           <IconButton
             icon={logoutIcon}
             alt="Logout"
@@ -85,23 +81,22 @@ function MainScreen({ currentUser, onLogout }: MainScreenProps) {
           />
         </h1>
 
-        <section className="w-full bg-neutral-50 p-4 grid gap-4" aria-busy={isLoading} aria-label="Posts feed" aria-live="polite">
+        <section
+          className="w-full bg-neutral-50 p-4 grid gap-4"
+          aria-busy={isLoading}
+          aria-label="Posts feed"
+          aria-live="polite"
+        >
           <div ref={topRef} />
           <PostForm username={currentUser} />
 
-          <div className="grid gap-4">
-            {renderContent()}
-          </div>
+          <div className="grid gap-4">{renderContent()}</div>
 
-          {shouldShowScrollUp && (
-            <ScrollToTopButton />
-          )}
-
+          {shouldShowScrollUp && <ScrollToTopButton />}
         </section>
       </main>
     </div>
-
-  )
+  );
 }
 
 export default MainScreen;

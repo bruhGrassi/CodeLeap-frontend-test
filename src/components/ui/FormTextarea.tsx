@@ -1,26 +1,22 @@
-import type { TextareaHTMLAttributes } from 'react'
+import type { TextareaHTMLAttributes } from "react";
 
 interface FormTextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  label?: string
-  value: string
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
+  label?: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-function FormTextarea({ 
-  label, 
-  value, 
-  onChange, 
-  className = '',
-  placeholder = 'Content here',
-  ...props 
+function FormTextarea({
+  label,
+  value,
+  onChange,
+  className = "",
+  placeholder = "Content here",
+  ...props
 }: FormTextareaProps) {
   return (
     <div className="flex flex-col gap-1">
-      {label && (
-        <label className="text-neutral-900">
-          {label}
-        </label>
-      )}
+      {label && <label className="text-neutral-900">{label}</label>}
       <textarea
         value={value}
         onChange={onChange}
@@ -37,8 +33,7 @@ function FormTextarea({
         {...props}
       />
     </div>
-  )
+  );
 }
 
-export default FormTextarea
-
+export default FormTextarea;
