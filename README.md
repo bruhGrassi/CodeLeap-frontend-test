@@ -28,7 +28,6 @@ A social media application built with React, TypeScript, and Vite. Users can cre
 
 ```bash
 git clone <repository-url>
-cd CLeap-test
 ```
 
 2. Install dependencies:
