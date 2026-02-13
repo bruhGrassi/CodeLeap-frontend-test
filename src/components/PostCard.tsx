@@ -46,7 +46,7 @@ function PostCard({
           "w-full border border-neutral-300 rounded-2xl flex flex-col bg-neutral-50 transition-all duration-300"
         }
       >
-        <header className="h-17.5 w-full bg-brand text-neutral-50 flex items-center justify-between px-4 md:px-8 py-4 flex-shrink-0 rounded-t-2xl">
+        <header className="h-17.5 w-full bg-brand text-neutral-50 flex items-center justify-between px-4 md:px-8 py-4 flex-shrink-0 rounded-t-xl">
           <h2 className="font-bold text-lg md:text-1xl leading-snug truncate">
             {title}
           </h2>
