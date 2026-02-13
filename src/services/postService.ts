@@ -6,18 +6,19 @@ import type {
 } from "../types/post";
 import { BASE_URL } from "../constants/api";
 
-async function handleResponse<T>(response: Response): Promise<T> {
-  if (!response.ok) {
-    throw new Error("Request Error");
-  }
+async function handleResponse<T>(
+  response: Response,
+  errorMessage: string,
+): Promise<T> {
+  if (!response.ok) throw new Error(errorMessage);
   return response.json();
 }
 
 export const postService = {
-  list: async (pageParam?: string): Promise<PostListResponse> => {
-    const url = pageParam ?? BASE_URL;
+  list: async (pageParam?: unknown): Promise<PostListResponse> => {
+    const url = typeof pageParam === "string" ? pageParam : BASE_URL;
     const response = await fetch(url);
-    return handleResponse<PostListResponse>(response);
+    return handleResponse<PostListResponse>(response, "Failed to fetch posts");
   },
 
   create: async (postData: PostCreate): Promise<Post> => {
@@ -26,7 +27,7 @@ export const postService = {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(postData),
     });
-    return handleResponse<Post>(response);
+    return handleResponse<Post>(response, "Failed to create post.");
   },
 
   update: async (id: number, postData: PostUpdate): Promise<Post> => {
@@ -35,13 +36,13 @@ export const postService = {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(postData),
     });
-    return handleResponse<Post>(response);
+    return handleResponse<Post>(response, "Failed to update post.");
   },
 
   delete: async (id: number): Promise<void> => {
     const response = await fetch(`${BASE_URL}${id}/`, {
       method: "DELETE",
     });
-    if (!response.ok) throw new Error("Error on delete");
+    if (!response.ok) throw new Error("Failed to delete post.");
   },
 };

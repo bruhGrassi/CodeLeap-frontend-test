@@ -11,6 +11,9 @@ import type { PostUpdate } from "../types/post";
 export const usePosts = () => {
   const queryClient = useQueryClient();
 
+  const invalidatePosts = () =>
+    queryClient.invalidateQueries({ queryKey: ["posts"] });
+
   const postsQuery = useInfiniteQuery({
     queryKey: ["posts"],
     queryFn: ({ pageParam }) => postService.list(pageParam),
@@ -21,7 +24,7 @@ export const usePosts = () => {
   const createMutation = useMutation({
     mutationFn: postService.create,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["posts"] });
+      invalidatePosts();
       toast.success("Post created successfully!");
     },
     onError: () => toast.error("Failed to create post"),
@@ -31,7 +34,7 @@ export const usePosts = () => {
     mutationFn: ({ id, data }: { id: number; data: PostUpdate }) =>
       postService.update(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["posts"] });
+      invalidatePosts();
       toast.success("Post updated successfully!");
     },
     onError: () => toast.error("Failed to update post"),
@@ -40,7 +43,7 @@ export const usePosts = () => {
   const deleteMutation = useMutation({
     mutationFn: postService.delete,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["posts"] });
+      invalidatePosts();
       toast.success("Post deleted successfully!");
     },
     onError: () => toast.error("Failed to delete post"),
