@@ -29,6 +29,9 @@ function EditPostModal({
 
   const { updatePost, isUpdating } = usePosts();
 
+  const isDisabled =
+    Object.values(form).some((value) => value.trim() === "") || isUpdating;
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     updatePost(
@@ -89,7 +92,7 @@ function EditPostModal({
           <FormButton variant="cancel" type="button" onClick={onClose}>
             Cancel
           </FormButton>
-          <FormButton variant="save" type="submit" disabled={isUpdating}>
+          <FormButton variant="save" type="submit" disabled={isDisabled}>
             {isUpdating ? <LoadingText text="Saving" /> : "Save"}
           </FormButton>
         </div>

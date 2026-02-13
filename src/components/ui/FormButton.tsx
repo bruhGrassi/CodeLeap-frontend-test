@@ -16,7 +16,7 @@ function FormButton({
   ...props
 }: FormButtonProps) {
   const baseStyles =
-    "rounded-lg h-8 w-[120px] font-bold text-center transition-colors text-base text-neutral-50 hover:opacity-90 active:opacity-80";
+    "rounded-lg h-8 w-[120px] font-bold text-center transition-colors text-base text-neutral-50 hover:opacity-90 active:opacity-80 disabled:cursor-not-allowed disabled:bg-neutral-300 disabled:opacity-70";
 
   const variantStyles: Record<
     NonNullable<FormButtonProps["variant"]>,
@@ -28,13 +28,11 @@ function FormButton({
     save: "bg-success",
   };
 
-  const disabledStyles = disabled ? "cursor-not-allowed bg-neutral-300" : "";
-
   return (
     <button
       disabled={disabled}
       type={type}
-      className={`${baseStyles} ${variantStyles[variant]} ${disabledStyles} ${className}`}
+      className={`${baseStyles} ${variantStyles[variant]} ${className}`}
       {...props}
     >
       {children}
