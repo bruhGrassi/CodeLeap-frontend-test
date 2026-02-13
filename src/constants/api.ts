@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://dev.codeleap.co.uk/careers/';
+export const BASE_URL = import.meta.env.VITE_BASE_URL;
