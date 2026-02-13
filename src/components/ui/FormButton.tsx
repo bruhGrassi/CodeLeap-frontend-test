@@ -15,25 +15,26 @@ function FormButton({
   type = "button",
   ...props
 }: FormButtonProps) {
-  const canBeDisabled = variant === "primary";
-  const actualDisabled = canBeDisabled ? disabled : false;
-
   const baseStyles =
-    "rounded-lg h-8 w-[111px] font-bold text-center transition-colors text-base text-neutral-50 hover:opacity-90 active:opacity-80";
-  const customWidth = "w-[120px]";
+    "rounded-lg h-8 w-[120px] font-bold text-center transition-colors text-base text-neutral-50 hover:opacity-90 active:opacity-80";
 
-  const variantStyles = {
-    primary: actualDisabled ? "cursor-not-allowed bg-neutral-300" : "bg-brand",
+  const variantStyles: Record<
+    NonNullable<FormButtonProps["variant"]>,
+    string
+  > = {
+    primary: "bg-brand",
     cancel: "bg-neutral-50 border border-neutral-300 text-neutral-900",
     delete: "bg-danger",
     save: "bg-success",
   };
 
+  const disabledStyles = disabled ? "cursor-not-allowed bg-neutral-300" : "";
+
   return (
     <button
-      disabled={actualDisabled}
+      disabled={disabled}
       type={type}
-      className={`${baseStyles} ${variantStyles[variant]} ${customWidth} ${className}`}
+      className={`${baseStyles} ${variantStyles[variant]} ${disabledStyles} ${className}`}
       {...props}
     >
       {children}
