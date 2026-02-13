@@ -14,8 +14,8 @@ async function handleResponse<T>(response: Response): Promise<T> {
 }
 
 export const postService = {
-  list: async (pageParam?: unknown): Promise<PostListResponse> => {
-    const url = typeof pageParam === "string" ? pageParam : BASE_URL;
+  list: async (pageParam?: string): Promise<PostListResponse> => {
+    const url = pageParam ?? BASE_URL;
     const response = await fetch(url);
     return handleResponse<PostListResponse>(response);
   },
