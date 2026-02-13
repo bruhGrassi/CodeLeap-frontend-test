@@ -1,22 +1,23 @@
-import type { ReactNode } from 'react'
-import { useState } from 'react'
-import { IconButton } from './ui'
-import editIcon from '../assets/bx_bx-edit.svg'
-import deleteIcon from '../assets/ic_baseline-delete-forever.svg'
-import DeletePostModal from './DeletePostModal'
-import EditPostModal from './EditPostModal'
-import { useRelativeTime } from '../hooks/useRelativeTime'
+import type { ReactNode } from "react";
+import { useState, useRef, useEffect } from "react";
+import { IconButton } from "./ui";
+import editIcon from "../assets/bx_bx-edit.svg";
+import deleteIcon from "../assets/ic_baseline-delete-forever.svg";
+import DeletePostModal from "./DeletePostModal";
+import EditPostModal from "./EditPostModal";
+import { useRelativeTime } from "../hooks/useRelativeTime";
 
 export interface PostCardProps {
-  id: number,
-  title: string
-  username: string
-  timestamp: string
-  content: string
-  isOwner?: boolean
-
-  headerActions?: ReactNode
+  id: number;
+  title: string;
+  username: string;
+  timestamp: string;
+  content: string;
+  isOwner?: boolean;
+  headerActions?: ReactNode;
 }
+
+const CONTENT_MAX_HEIGHT = 300;
 
 function PostCard({
   id,
@@ -27,15 +28,29 @@ function PostCard({
   isOwner = false,
   headerActions,
 }: PostCardProps) {
-  const showOwnerActions = isOwner
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false)
-  const [isEditOpen, setIsEditOpen] = useState(false)
-  const relativeTime = useRelativeTime(timestamp)
+  const showOwnerActions = isOwner;
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [shouldShowReadMore, setShouldShowReadMore] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const relativeTime = useRelativeTime(timestamp);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      const scrollHeight = contentRef.current.scrollHeight;
+      setShouldShowReadMore(scrollHeight > CONTENT_MAX_HEIGHT);
+    }
+  }, [content]);
 
   return (
     <>
-      <article className="min-h-[316px] w-full border border-neutral-300 rounded-2xl overflow-hidden flex flex-col bg-neutral-50">
-        <header className="h-[70px] w-full bg-brand text-neutral-50 flex items-center justify-between px-4 md:px-8 py-4">
+      <article
+        className={
+          "w-full border border-neutral-300 rounded-2xl flex flex-col bg-neutral-50 transition-all duration-300"
+        }
+      >
+        <header className="h-[70px] w-full bg-brand text-neutral-50 flex items-center justify-between px-4 md:px-8 py-4 flex-shrink-0 rounded-t-[16px]">
           <h2 className="font-bold text-lg md:text-1xl leading-snug truncate">
             {title}
           </h2>
@@ -59,19 +74,42 @@ function PostCard({
           </div>
         </header>
 
-        <div className="flex-1 px-4 py-4 flex flex-col gap-4">
+        <div
+          className={`flex-1 px-4 py-4 flex flex-col gap-4 ${
+            !isExpanded && shouldShowReadMore ? "overflow-hidden" : ""
+          }`}
+          style={
+            !isExpanded && shouldShowReadMore
+              ? { maxHeight: `${CONTENT_MAX_HEIGHT - 70}px` }
+              : {}
+          }
+        >
           <div className="flex items-center justify-between text-neutral-400 text-lg leading-none">
             <span className="font-bold text-neutral-400 text-base md:text-lg">
               @{username}
             </span>
-            <span className="font-normal text-base md:text-lg">{relativeTime}</span>
+            <span className="font-normal text-base md:text-lg">
+              {relativeTime}
+            </span>
           </div>
 
-          <p className="text-base md:text-lg font-normal text-neutral-900 leading-snug break-words whitespace-pre-line">
-            {content}
-          </p>
-
+          <div ref={contentRef}>
+            <p className="text-base md:text-lg font-normal text-neutral-900 leading-snug break-words whitespace-pre-line">
+              {content}
+            </p>
+          </div>
         </div>
+
+        {shouldShowReadMore && (
+          <div className="p-4 flex justify-end">
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="text-brand font-bold text-base md:text-lg hover:underline transition-all flex items-center gap-1"
+            >
+              {isExpanded ? "Read less" : "Read more..."}
+            </button>
+          </div>
+        )}
       </article>
 
       <DeletePostModal
@@ -88,8 +126,7 @@ function PostCard({
         onClose={() => setIsEditOpen(false)}
       />
     </>
-  )
+  );
 }
 
-export default PostCard
-
+export default PostCard;
