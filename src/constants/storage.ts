@@ -1,3 +1,1 @@
-export const STORAGE_KEYS = {
-  USER_NAME: '@CodeLeap:username',
-} as const;
+export const USER_SESSION = "@CodeLeap:username";

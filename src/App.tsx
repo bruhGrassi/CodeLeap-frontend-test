@@ -1,22 +1,21 @@
-import { useState } from 'react';
-import Signup from './components/Signup'
-import MainScreen from './components/MainScreen'
-import { STORAGE_KEYS } from './constants/storage';
-import { Toaster } from 'sonner';
-
+import { useState } from "react";
+import Signup from "./components/Signup";
+import MainScreen from "./components/MainScreen";
+import { USER_SESSION } from "./constants/storage";
+import { Toaster } from "sonner";
 
 function App() {
   const [username, setUsername] = useState<string | null>(
-    localStorage.getItem(STORAGE_KEYS.USER_NAME)
+    localStorage.getItem(USER_SESSION),
   );
 
   const handleLogin = (name: string) => {
-    localStorage.setItem(STORAGE_KEYS.USER_NAME, name);
+    localStorage.setItem(USER_SESSION, name);
     setUsername(name);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem(STORAGE_KEYS.USER_NAME);
+    localStorage.removeItem(USER_SESSION);
     setUsername(null);
   };
 
@@ -24,9 +23,13 @@ function App() {
     <>
       <Toaster position="top-right" richColors />
 
-      {!username ? <Signup onLogin={handleLogin} /> : <MainScreen currentUser={username} onLogout={handleLogout} />}
+      {!username ? (
+        <Signup onLogin={handleLogin} />
+      ) : (
+        <MainScreen currentUser={username} onLogout={handleLogout} />
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
