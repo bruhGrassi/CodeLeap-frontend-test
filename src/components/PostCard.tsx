@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 import { useState, useRef, useEffect } from "react";
 import { IconButton } from "./ui";
-import editIcon from "../assets/bx_bx-edit.svg";
-import deleteIcon from "../assets/ic_baseline-delete-forever.svg";
+import editIcon from "../assets/edit.svg";
+import deleteIcon from "../assets/delete.svg";
 import DeletePostModal from "./DeletePostModal";
 import EditPostModal from "./EditPostModal";
 import { useRelativeTime } from "../hooks/useRelativeTime";
